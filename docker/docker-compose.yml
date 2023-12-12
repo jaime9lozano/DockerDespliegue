@@ -1,0 +1,26 @@
+version: '3'
+services:
+  web:
+    build: ./nginx
+    ports:
+      - "80:80"
+
+  api:
+    build: ./api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    volumes:
+      - api-data:/app/data  
+
+  mongo:
+    build: ./mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db  
+
+volumes:
+  api-data:
+  mongo-data:
